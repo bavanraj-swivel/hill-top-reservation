@@ -102,5 +102,41 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+   <profile>
+      <id>sonar</id>
+      <properties>
+         <sonar.host.url>http://sonar.qpon.lk/</sonar.host.url>
+         <sonar.organization>QponProject</sonar.organization>
+         <sonar.projectKey>ignite-bavan-hill-top-reservation</sonar.projectKey>
+	 <sonar.projectName>ignite-bavan-hill-top-reservation</sonar.projectName>
+         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+         <!--suppress UnresolvedMavenProperty -->
+         <sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
+         <!--suppress UnresolvedMavenProperty -->
+         <sonar.report>${aggregate.report.dir}</sonar.report>
+      </properties>
+      <activation>
+         <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+         <plugins>
+            <plugin>
+               <groupId>org.sonarsource.scanner.maven</groupId>
+               <artifactId>sonar-maven-plugin</artifactId>
+               <executions>
+                  <execution>
+                     <id>sonar</id>
+                     <phase>verify</phase>
+                     <goals>
+                        <goal>sonar</goal>
+                     </goals>
+                  </execution>
+               </executions>
+            </plugin>
+         </plugins>
+      </build>
+   </profile>
+</profiles>
 
 </project>
