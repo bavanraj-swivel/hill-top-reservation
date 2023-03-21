@@ -1,0 +1,25 @@
+# Sonarqube Scan 4
+name: Sonarqube Scan
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonar:
+    name: Sonarqube Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          sonar-project-key: ignite-bavan-hill-top-reservation
+          project-name: ignite-bavan-hill-top-reservation
+          java-version: 11
+      - name: Sonarqube Analysis
+        run: mvn -B clean verify -Psonar -Dsonar.login=squ_35fb288867731f094ecf3164c389b208d6da18a9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
