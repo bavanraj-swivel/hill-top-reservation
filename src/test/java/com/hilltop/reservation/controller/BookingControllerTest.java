@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 class BookingControllerTest {
 
-    private final String ADD_BOOKING_URI = "/api/booking";
+    private final String ADD_BOOKING_URI = "/api/v1/booking";
     private final BookingRequestDto bookingRequestDto = getBookingRequestDto();
     @Mock
     private BookingService bookingService;
@@ -47,7 +47,7 @@ class BookingControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post(ADD_BOOKING_URI)
                         .content(bookingRequestDto.toLogJson())
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message").value(SuccessMessage.SUCCESSFULLY_ADDED.getMessage()));
     }
 

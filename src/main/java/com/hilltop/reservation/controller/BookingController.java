@@ -7,6 +7,7 @@ import com.hilltop.reservation.enumeration.SuccessMessage;
 import com.hilltop.reservation.exception.HillTopBookingApplicationException;
 import com.hilltop.reservation.service.BookingService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
-@RequestMapping("/api/booking")
+@RequestMapping("/api/v1/booking")
 public class BookingController extends BaseController {
 
     private final BookingService bookingService;
@@ -45,7 +46,7 @@ public class BookingController extends BaseController {
                 return getBadRequestErrorResponse(ErrorMessage.INVALID_DATES);
             }
             bookingService.addBooking(bookingRequestDto);
-            return getSuccessResponse(SuccessMessage.SUCCESSFULLY_ADDED, null);
+            return getSuccessResponse(SuccessMessage.SUCCESSFULLY_ADDED, null, HttpStatus.CREATED);
         } catch (HillTopBookingApplicationException e) {
             log.error("Failed to make booking.", e);
             return getInternalServerError();
